@@ -1,6 +1,6 @@
 import torch
 
-import config
+from src import config
 
 
 class BERTDataset:
