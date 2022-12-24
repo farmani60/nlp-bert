@@ -19,7 +19,7 @@ class BERTDataset:
         tweet = str(self.tweet[item])
         tweet = " ".join(tweet.split())
 
-        # encode_plus cmes from huggingface's transformers
+        # encode_plus comes from huggingface's transformers
         # and exists for all tokenizers they offer
         # it can be used to convert any offer
         # to ids, mask, and token type ids which are
