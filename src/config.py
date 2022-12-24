@@ -1,3 +1,5 @@
+import os
+
 import transformers
 
 # this is the maximum number of tokens in a sentence
@@ -12,10 +14,11 @@ EPOCHS = 10
 
 # data
 DATA_DIR = "../input/"
-BERT_PATH = DATA_DIR + "bert_based_uncased/"
 ORIGINAL_TRAIN_DATA = DATA_DIR + "train.csv"
 ORIGINAL_TEST_DATA = DATA_DIR + "test.csv"
 SUBMISSION = DATA_DIR + "sample_submission.csv"
+BERT_MODEL = "bert-base-uncased"
+CACHE_DIR = os.path.join(DATA_DIR, "transformers-cache")
 
 # where to save the model
 MODEL_PATH = DATA_DIR + "model/model.bin"
@@ -23,4 +26,4 @@ MODEL_PATH = DATA_DIR + "model/model.bin"
 # define the tokenizer
 # we use tokenizer and model
 # from huggingface's transformers
-TOKENIZER = transformers.BertTokenizer.from_pretrained(BERT_PATH, do_lower_case=True)
+tokenizer = transformers.BertTokenizer.from_pretrained(BERT_MODEL, cache_dir=CACHE_DIR, do_lower_case=True)
