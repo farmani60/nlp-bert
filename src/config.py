@@ -12,6 +12,11 @@ VALID_BATCH_SIZE = 4
 # number of epochs
 EPOCHS = 10
 
+# target
+TARGET = "target"
+RELABELED_TARGET = "config.RELABELED_TARGET"
+TEXT = "text"
+
 # data
 DATA_DIR = "../input/"
 ORIGINAL_TRAIN_DATA = os.path.join(DATA_DIR, "train.csv")
