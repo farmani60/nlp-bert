@@ -9,9 +9,13 @@ MAX_LEN = 512
 TRAIN_BATCH_SIZE = 8
 VALID_BATCH_SIZE = 4
 
-# number of epochs
+# training
 EPOCHS = 10
 TEST_SIZE = 0.1
+LEARNING_RATE = 0.00005
+
+# validation
+THRESHOLD = 0.5
 
 # target
 TARGET = "target"
