@@ -11,6 +11,7 @@ VALID_BATCH_SIZE = 4
 
 # number of epochs
 EPOCHS = 10
+TEST_SIZE = 0.1
 
 # target
 TARGET = "target"

@@ -6,6 +6,40 @@ from nltk.tokenize import word_tokenize
 from src import config
 
 
+def remove_repeation_subtext_in_df(df):
+    # Remove character repetition (1...num times) from subtext list in the df[col]
+    subtext_to_clearning = [
+        "!",
+        "#",
+        "$",
+        "(",
+        ")",
+        "*",
+        "+",
+        "-",
+        ".",
+        ":",
+        ";",
+        "=",
+        "?",
+        "@",
+        "[",
+        "]",
+        "^",
+        "|",
+        "_",
+        "{",
+        "}",
+    ]
+    for i in range(len(df)):
+        text = df.loc[i, config.TEXT]
+        for c in subtext_to_clearning:
+            while text.rfind(c + c) > -1:
+                text = text.replace(c + c, c)
+        df.loc[i, config.TEXT] = text
+    return df
+
+
 def clean_tweets(tweet):
     # Removing non-ASCII characters
     tweet = "".join([x for x in tweet if x in string.printable])

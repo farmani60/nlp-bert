@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn import model_selection
 
 from src import config
 from src.data_cleaning import (
@@ -10,9 +11,11 @@ from src.data_cleaning import (
 )
 
 
-def train():
-    # this function trains the model
-    pass
+def train(df):
+    # first split data into single training and validation sets
+    df_train, df_validation = model_selection.train_test_split(
+        df, test_size=config.TEST_SIZE, random_state=42, stratify=df.keyword.values
+    )
 
 
 if __name__ == "__main__":
@@ -20,6 +23,13 @@ if __name__ == "__main__":
     print("Load data...")
     df_train = pd.read_csv(config.ORIGINAL_TRAIN_DATA)
     df_test = pd.read_csv(config.ORIGINAL_TEST_DATA)
+
+    # just to test
+    df_train = df_train.sample(100)
+    df_test = df_test.sample(100)
+
+    # fill nan values
+    df_train["keyword"] = df_train["keyword"].fillna("no_keyword")
 
     # clean tweets
     df_train[config.TEXT] = df_train[config.TEXT].apply(lambda x: clean_tweets(x))
