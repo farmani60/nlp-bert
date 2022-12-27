@@ -18,7 +18,7 @@ from src.model import BERTBaseUncased
 def train(df, device="gpu"):
     # first split data into single training and validation sets
     df_train, df_valid = model_selection.train_test_split(
-        df, test_size=config.TEST_SIZE, random_state=42, stratify=df.keyword.values
+        df, test_size=config.TEST_SIZE, random_state=42, stratify=df.target.values
     )
 
     # reset index
@@ -53,7 +53,7 @@ def train(df, device="gpu"):
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
     optimizer_parameters = [
         {"params": [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], "weight_decay": 0.001},
-        {"params": [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], "weight_decay": 0.0},
+        # {"params": [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], "weight_decay": 0.0},
     ]
 
     # calculate the number of training steps
@@ -63,11 +63,11 @@ def train(df, device="gpu"):
     # AdamW optimizer
     # AdamW optimizer is the most widely used optimizer
     # for transformer based networks
-    optimizer = AdamW(optimizer_parameters, lr=config.RELABELED_TARGET)
+    optimizer = AdamW(optimizer_parameters, lr=config.LEARNING_RATE)
 
     # fetch a schedular
     # you can also try using reduce lr on plateau
-    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_train_steps=num_train_steps)
+    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=num_train_steps)
 
     # if you have multi gpus
     # model model to DataParallel
@@ -115,4 +115,4 @@ if __name__ == "__main__":
     # fix wrong targets
     df_train = relabel_targets(df_train)
 
-    train(df_train, device="gpu")
+    train(df_train, device="cpu")

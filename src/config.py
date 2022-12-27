@@ -8,6 +8,7 @@ MAX_LEN = 512
 # batch size is small because the model is huge
 TRAIN_BATCH_SIZE = 8
 VALID_BATCH_SIZE = 4
+TEST_BATCH_SIZE = 4
 
 # training
 EPOCHS = 10
@@ -33,6 +34,7 @@ BERT_PATH = os.path.join(CACHE_DIR, "models--bert-base-uncased")
 
 # where to save the model
 MODEL_PATH = DATA_DIR + "model/model.bin"
+PREDICTION_PATH = os.path.join(DATA_DIR, "submission.csv")
 
 # Next we specify the pre-trained BERT model we are going to use. The
 # model `"bert-base-uncased"` is the lowercased "base" model
